@@ -1,27 +1,6 @@
 var express = require('express');
 var express_graphql = require('express-graphql');
 var { buildSchema } = require('graphql');
-// GraphQL schema
-var schema = buildSchema(`
-    type Query {
-        allCourses: [Course]
-        course(id: Int!): Course
-        courses(topic: String): [Course]
-    },
-    type Mutation {
-        updateCourseTopic(id: Int!, topic: String!): Course
-    },
-    type Course {
-        id: Int
-        title: String
-        author: String
-        description: String
-        topic: String
-        url: String
-    }
-`);
-
-
 
 var coursesData = [
     {
@@ -49,6 +28,28 @@ var coursesData = [
         url: 'https://codingthesmartway.com/courses/understand-javascript/'
     }
 ]
+
+// GraphQL schema
+var schema = buildSchema(`
+    type Query {
+        allCourses: [Course]
+        course(id: Int!): Course
+        courses(topic: String): [Course]
+    },
+    type Mutation {
+        updateCourseTopic(id: Int!, topic: String!): Course
+    },
+    type Course {
+        id: Int
+        title: String
+        author: String
+        description: String
+        topic: String
+        url: String
+    }
+`);
+
+
 var getCourse = function(args) { 
     var id = args.id;
     return coursesData.filter(course => {
